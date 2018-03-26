@@ -1,0 +1,21 @@
+{
+  "name": "Developer Test (Edit)",
+  "contact.company": "testing company ltd",
+  "contact.address1": "46 Budd Street",
+  "contact.address2": " ",
+  "contact.city": "Collingwood",
+  "contact.state": "VIC",
+  "contact.zip": "3066",
+  "contact.country": "Australia",
+  "contact.phone": "0389237658",
+  "permission_reminder": "You received this email because we are doing testing",
+  "use_archive_bar": false,
+  "campaign_defaults.from_name": "Fei Kwok",
+  "campaign_defaults.from_email": "fkwok00@gmail.com",
+  "campaign_defaults.subject": "Test List Laravel Package Subject",
+  "campaign_defaults.language": "English",
+  "notify_on_subscribe": "fkwok00@gmail.com",
+  "notify_on_unsubscribe": "fkwok00@gmail.com",
+  "email_type_option": false,
+  "visibility": "prv"
+}

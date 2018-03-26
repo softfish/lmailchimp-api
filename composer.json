@@ -1,0 +1,38 @@
+{
+  "name": "feikwok/laravel-mailchimp-list-management",
+  "version": "dev-master",
+  "description" : "Package for laravel and mailchimp integration on list management",
+  "keywords" : [
+    "laravel",
+    "mailchimp",
+    "list management"
+  ],
+  "type" : "package",
+  "require" : {
+    "php" : ">=7.0",
+    "guzzlehttp/guzzle": "~6.0"
+  },
+  "require-dev" : {
+    "phpunit/phpunit" : "^4.0",
+    "mockery/mockery" : "~0.9.4"
+  },
+  "license" : "MIT",
+  "authors" : [{
+    "name" : "Fei Kwok",
+    "email" : "fkwok00@gmail.com"
+  }
+  ],
+  "minimum-stability" : "dev",
+  "autoload" : {
+    "psr-4" : {
+      "Feikwok\\LMailChimp\\" : "src/"
+    }
+  },
+  "extra" : {
+    "laravel" : {
+      "providers" : [
+        "Feikwok\\LMailChimp\\LMailChimpServiceProvider"
+      ]
+    }
+  }
+}
