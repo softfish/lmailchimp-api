@@ -23,11 +23,18 @@ class ListApiController extends Controller
     {
         $result = app('MailChimpApiService')->getExistingLists();
 
-        return response([
-            'success' => true,
-            'lists' => $result->lists,
-            'total_items' => $result->total_items,
-        ]);
+        if ($result) {
+            return response([
+                'success' => true,
+                'lists' => $result->lists,
+                'total_items' => $result->total_items,
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'error' => 'Load available MailChimp list error.'
+            ]);
+        }
     }
 
     /**
@@ -39,11 +46,19 @@ class ListApiController extends Controller
     {
         $result = app('MailChimpApiService')->createNewList($request->all());
 
-        return response([
-            'success' => true,
-            'message' => 'New list has been created.',
-            'new_list' => $result,
-        ]);
+        if ($result) {
+            return response([
+                'success' => true,
+                'message' => 'New list has been created.',
+                'new_list' => $result,
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'message' => 'Create new MailChimp list error, please see system log for more info.'
+            ]);
+        }
+
 
     }
 
@@ -57,10 +72,17 @@ class ListApiController extends Controller
     {
         $result = app('MailChimpApiService')->updateExistingList($list_id, $request->all());
 
-        return response([
-            'success' => true,
-            'message' => 'List '.$list_id.' has been updated.',
-        ]);
+        if (!empty($result) && $result != false) {
+            return response([
+                'success' => true,
+                'message' => 'List '.$list_id.' has been updated.',
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'error' => 'Update existing MailChimp list error, please see system log for more info.'
+            ]);
+        }
     }
 
     /**

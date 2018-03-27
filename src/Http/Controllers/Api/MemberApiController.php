@@ -24,10 +24,18 @@ class MemberApiController extends Controller
     {
         $result = app('MailChimpApiService')->addMemberToList($list_id, $request->all());
 
-        return response([
-            'success' => true,
-            'message' => 'New member has been added to the MailChimp list '.$list_id,
-        ]);
+        if ($result) {
+            return response([
+                'success' => true,
+                'message' => 'New member has been added to the MailChimp list '.$list_id,
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'error' => 'Adding new member to MailChimp list failed. Please check the system log for more info.',
+            ]);
+        }
+
     }
 
     /**
@@ -41,10 +49,17 @@ class MemberApiController extends Controller
     {
         $result = app('MailChimpApiService')->updateMemberOnList($list_id, $request->all());
 
-        return response([
-            'success' => true,
-            'message' => 'The member detail has been updated',
-        ]);
+        if ($result) {
+            return response([
+                'success' => true,
+                'message' => 'The member detail has been updated',
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'error' => 'Update member detail error. Please check the system log for more info.'
+            ]);
+        }
     }
 
     /**
@@ -58,9 +73,17 @@ class MemberApiController extends Controller
     {
         $result = app('MailChimpApiService')->removeMemberFromList($list_id, $request->get('email'));
 
-        return response([
-            'success' => true,
-            'message' => 'Member has been removed from the MailChimp list.'
-        ]);
+        if ($result) {
+            return response([
+                'success' => true,
+                'message' => 'Member has been removed from the MailChimp list.'
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'error' => 'Remove member from MailChimp list error. Please check the system log for more info.'
+            ]);
+        }
+
     }
 }

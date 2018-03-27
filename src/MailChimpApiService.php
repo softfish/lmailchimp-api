@@ -9,6 +9,7 @@ namespace Feikwok\LMailChimp;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Log;
 
 class MailChimpApiService {
 
@@ -60,12 +61,16 @@ class MailChimpApiService {
                     'Content-Type' => 'application/json',
                 ]
             ]);
+
+            return $this->getResponse($response);
+
         } catch (ClientException $e) {
-            dd($e->getResponse()->getBody()->getContents());
+            Log::error("Create New MailChimp List Error: ".$e->getResponse()->getBody()->getContents());
+            return null;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error("Create New MailChimp List Error: ".$e->getMessage());
+            return null;
         }
-        return $this->getResponse($response);
     }
 
     /**
@@ -84,12 +89,16 @@ class MailChimpApiService {
                     'Content-Type' => 'application/json',
                 ]
             ]);
+
+            return $this->getResponse($response);
+
         } catch (ClientException $e) {
-            dd($e->getResponse()->getBody()->getContents());
+            Log::error("Update Existing MailChimp List Error: ".$e->getResponse()->getBody()->getContents());
+            return null;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error("Update Existing MailChimp List Error: ".$e->getMessage());
+            return null;
         }
-        return $this->getResponse($response);
     }
 
     /**
@@ -107,9 +116,11 @@ class MailChimpApiService {
                 return false;
             }
         } catch (ClientException $e) {
-            dd($e->getResponse()->getBody()->getContents());
+            Log::error("Remove Existing MailChimp List Error: ".$e->getResponse()->getBody()->getContents());
+            return false;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error("Remove Existing MailChimp List Error: ".$e->getMessage());
+            return false;
         }
     }
 
@@ -131,9 +142,11 @@ class MailChimpApiService {
                 ]
             ]);
         } catch (ClientException $e) {
-            dd($e->getResponse()->getBody()->getContents());
+            Log::error("Add New MailChimp Member Error: ".$e->getResponse()->getBody()->getContents());
+            return null;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error("Add New MailChimp Member Error: ".$e->getMessage());
+            return null;
         }
         return $this->getResponse($response);
     }
@@ -155,12 +168,16 @@ class MailChimpApiService {
                     'Content-Type' => 'application/json',
                 ]
             ]);
+
+            return $this->getResponse($response);
+
         } catch (ClientException $e) {
-            dd($e->getResponse()->getBody()->getContents());
+            Log::error("Update Existing MailChimp Member Error: ".$e->getResponse()->getBody()->getContents());
+            return null;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error("Update Existing MailChimp Member Error: ".$e->getMessage());
+            return null;
         }
-        return $this->getResponse($response);
     }
 
     /**
@@ -180,9 +197,11 @@ class MailChimpApiService {
                 return false;
             }
         } catch (ClientException $e) {
-            dd($e->getResponse()->getBody()->getContents());
+            Log::error("Remove Existing MailChimp Member Error: ".$e->getResponse()->getBody()->getContents());
+            return null;
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error("Remove Existing MailChimp Member Error: ".$e->getMessage());
+            return null;
         }
     }
 
