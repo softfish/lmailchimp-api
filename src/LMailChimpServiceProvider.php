@@ -43,6 +43,10 @@ class LMailChimpServiceProvider extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lmailchimp');
+        $this->app->bind('MailChimpApiService', function($app){
+            return new MailChimpApiService();
+        });
+
     }
     /**
      * Define the asset publishing configuration.

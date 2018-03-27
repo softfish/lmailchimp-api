@@ -21,7 +21,7 @@ class ListApiController extends Controller
      */
     public function index()
     {
-        $result = (new MailChimpApiService())->getExistingLists();
+        $result = app('MailChimpApiService')->getExistingLists();
 
         return response([
             'success' => true,
@@ -37,7 +37,7 @@ class ListApiController extends Controller
      */
     public function store(Request $request)
     {
-        $result = (new MailChimpApiService())->createNewList($request->all());
+        $result = app('MailChimpApiService')->createNewList($request->all());
 
         return response([
             'success' => true,
@@ -55,7 +55,7 @@ class ListApiController extends Controller
      */
     public function update(Request $request, $list_id)
     {
-        $result = (new MailChimpApiService())->updateExistingList($list_id, $request->all());
+        $result = app('MailChimpApiService')->updateExistingList($list_id, $request->all());
 
         return response([
             'success' => true,
@@ -71,7 +71,7 @@ class ListApiController extends Controller
      */
     public function delete($list_id)
     {
-        $result = (new MailChimpApiService())->removeExistingList($list_id);
+        $result = app('MailChimpApiService')->removeExistingList($list_id);
 
         if ($result) {
             return response([

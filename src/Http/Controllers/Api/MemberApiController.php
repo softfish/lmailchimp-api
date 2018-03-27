@@ -22,7 +22,7 @@ class MemberApiController extends Controller
      */
     public function store(Request $request, $list_id)
     {
-        $result = (new MailChimpApiService())->addMemberToList($list_id, $request->all());
+        $result = app('MailChimpApiService')->addMemberToList($list_id, $request->all());
 
         return response([
             'success' => true,
@@ -39,7 +39,7 @@ class MemberApiController extends Controller
      */
     public function update(Request $request, $list_id)
     {
-        $result = (new MailChimpApiService())->updateMemberOnList($list_id, $request->all());
+        $result = app('MailChimpApiService')->updateMemberOnList($list_id, $request->all());
 
         return response([
             'success' => true,
@@ -56,7 +56,7 @@ class MemberApiController extends Controller
      */
     public function delete(Request $request, $list_id)
     {
-        $result = (new MailChimpApiService())->removeMemberFromList($list_id, $request->get('email'));
+        $result = app('MailChimpApiService')->removeMemberFromList($list_id, $request->get('email'));
 
         return response([
             'success' => true,
