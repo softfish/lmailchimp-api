@@ -17,6 +17,12 @@ To use this package make sure you have obtained API key from your MailChimp acco
 ```
 LMAILCHIMP_API_KEY=[your-api-key]
 ```
+## Assumption
+
+These APIs are build and tested internally. If you are intended to use and open for external sources, please make sure to handle the CORS on the main Laravel app. E.g. create a controller to use the MailChimpApiService class directly.
+
+However there are some additional package you might want to install to handle the CORS e.g.  barryvdh/laravel-cors
+
 ## API Manual
 
 Below are the information on how you can use for the API methods. I have included some request samples for each API.
