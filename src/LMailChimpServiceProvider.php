@@ -36,6 +36,10 @@ class LMailChimpServiceProvider extends ServiceProvider
     {
         include __DIR__ . '/routes/api.php';
         $this->app->make('Feikwok\LMailChimp\Http\Controllers\Api\ListApiController');
+
+        $this->mergeConfigFrom(
+            __DIR__. '/config/app.php', 'lmailchimp'
+        );
     }
     /**
      * Register the package Resources

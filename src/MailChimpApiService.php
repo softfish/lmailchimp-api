@@ -21,15 +21,15 @@ class MailChimpApiService {
      */
     public function __construct()
     {
-        if (!env('LMAILCHIMP_API_KEY') && (preg_match('/\-/', env('LMAILCHIMP_API_KEY')))) {
+        if (!config('lmailchimp.mailchimp.api_key') && (preg_match('/\-/', config('lmailchimp.mailchimp.api_key')))) {
             throw new \Exception('MailChimp API required');
         }
-        $apiKey = env('LMAILCHIMP_API_KEY');
+        $apiKey = config('lmailchimp.mailchimp.api_key');
 
         [$key, $dc] = explode('-', $apiKey);
 
         $this->client = new Client([
-            'base_uri' => "https://$dc.api.mailchimp.com/3.0/",
+            'base_uri' => "https://$dc.".config('lmailchimp.mailchimp.api_base_uri'),
             'auth'     => ['apikey', $key],
         ]);
     }
