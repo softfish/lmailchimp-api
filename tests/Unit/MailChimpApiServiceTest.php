@@ -33,7 +33,7 @@ class MailChimpApiServiceTest extends TestCase
     }
 
     /**
-     * Test to create a new MailChimp list API
+     * Test create a new MailChimp list API
      *
      * @return void
      */
@@ -57,6 +57,46 @@ class MailChimpApiServiceTest extends TestCase
     }
 
     /**
+     * Test update an existing MailChimp list API
+     *
+     * @return void
+     */
+    public function testUpdateMailChimpList()
+    {
+        $response = $this->service->getExistingLists();
+        $testList = null;
+        foreach ($response->lists as $list) {
+            if (preg_match('/testplanlist\-/', $list->name)) {
+                $testList = $list;
+            }
+        }
+
+        $path   = __DIR__ . "/../stubs/api_create_new_list.json";
+        $data = json_decode(file_get_contents($path), true);
+
+        $editedTestListName = $testList['name'].' (Edit)';
+        $data['name'] = $editedTestListName;
+
+        $listId = $data['id'];
+
+        // reload the existing lists
+        $response = $this->service->getExistingLists();
+
+        $listUpdated = false;
+
+        foreach ($response->lists as $list) {
+            if ($list->id === $listId) {
+                if ($list['name'] === $editedTestListName) {
+                    // only when we find the right list and make sure the name has been changed
+                    $listUpdated = true;
+                }
+            }
+        }
+
+        $this->assertTrue($listUpdated);
+    }
+
+    /**
      * Test to remove an existing list from MailChimp server
      *
      * @return void
@@ -64,6 +104,19 @@ class MailChimpApiServiceTest extends TestCase
     public function testRemoveExistingMailChimpList()
     {
         $this->cleanup();
+
+        // After we clean up / remove the test list from MailChimp account
+        $lists = $this->service->getExistingLists();
+        $stillHaveTestList = false;
+        foreach ($lists as $list){
+            // If list name is started with 'testplanlist-' then we are going to remove it
+            if (preg_match('/testplanlist\-/', $list->name)) {
+                $stillHaveTestList = true;
+                // if we have even one test list then the test is failed.
+                break;
+            }
+        }
+        $this->assertTrue(!$stillHaveTestList);
     }
 
     private function cleanup()
