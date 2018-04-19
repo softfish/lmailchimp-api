@@ -84,6 +84,22 @@ class MemberApiController extends Controller
                 'error' => 'Remove member from MailChimp list error. Please check the system log for more info.'
             ]);
         }
+    }
 
+    /**
+     * Filter which search the mailchimp for a given key string.
+     *
+     * @param Request $request
+     * @param $list_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function find(Request $request, $list_id)
+    {
+        $matchedMembers= app('MailchimpApiService')->searchMembersFromList($list_id, $request->get('query'));
+
+        return response([
+            'success' => true,
+            'members' => $matchedMembers,
+        ]);
     }
 }

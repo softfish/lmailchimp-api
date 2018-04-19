@@ -206,6 +206,33 @@ class MailChimpApiService {
     }
 
     /**
+     * Search an existing member by a given string query
+     *
+     * @param $listId
+     * @param $searchStr
+     * @return mixed|null
+     */
+    public function searchMembersFromList($listId, $searchStr)
+    {
+        try {
+            $searchUri = 'search-members?list_id='.$listId.'&query='.$searchStr;
+            $response = $this->client->get($searchUri);
+            if ($response->getStatusCode() === 200) {
+                $response = $this->getResponse($response);
+                return ($response->exact_matches->total_items > 0)? $response->exact_matches->members : $response->full_search->members;
+            } else {
+                return null;
+            }
+        } catch (ClientException $e) {
+            Log::error("Load Existing MailChimp Member Error: ".$e->getResponse()->getBody()->getContents());
+            return null;
+        } catch (\Exception $e) {
+            Log::error("Load Existing MailChimp Member Error: ".$e->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Processing response contents
      *
      * @param $response
