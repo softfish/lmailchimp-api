@@ -97,6 +97,19 @@ class MailChimpApiServiceTest extends TestCase
     }
 
     /**
+     * Search an existing member test
+     */
+    public function testSearchExistingMailChimpMember()
+    {
+        $response = $this->service->getExistingLists();
+        $testAccount = $response->lists[0];
+
+        $response = $this->service->searchMembersFromList($testAccount['id'], $testAccount['email']);
+
+        $this->assertNotEmpty($response->members);
+    }
+
+    /**
      * Test to remove an existing list from MailChimp server
      *
      * @return void
